@@ -100,18 +100,6 @@ func EthBlockNumber() (interface{}, error) {
 	return resp.Result, nil
 }
 
-//TODO: finish
-func Eth() (interface{}, error) {
-	resp, err := Call("XXXXXXXXXXXXXXXXX", nil)
-	if err != nil {
-		return nil, err
-	}
-	if resp.Error != nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
 /*
 //TODO: finish
 func EthGetBalance() (interface{}, error) {

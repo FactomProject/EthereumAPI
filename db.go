@@ -1,14 +1,16 @@
 package EthereumAPI
 
-import ()
+import (
+//"fmt"
+)
 
 //https://github.com/ethereum/wiki/wiki/JSON-RPC
 
 /*
-db_putString
+
 //TODO: finish
-func DB() (interface{}, error) {
-	resp, err:=Call("XXXXXXXXXXX", nil)
+func DBPutString() (interface{}, error) {
+	resp, err:=Call("db_putString", nil)
 	if err!=nil {
 		return nil, err
 	}
@@ -18,10 +20,10 @@ func DB() (interface{}, error) {
 	return resp.Result, nil
 }
 
-db_getString
+
 //TODO: finish
-func DB() (interface{}, error) {
-	resp, err:=Call("XXXXXXXXXXX", nil)
+func DBGetString() (interface{}, error) {
+	resp, err:=Call("db_getString", nil)
 	if err!=nil {
 		return nil, err
 	}
@@ -31,10 +33,10 @@ func DB() (interface{}, error) {
 	return resp.Result, nil
 }
 
-db_putHex
+
 //TODO: finish
-func DB() (interface{}, error) {
-	resp, err:=Call("XXXXXXXXXXX", nil)
+func DBPutHex() (interface{}, error) {
+	resp, err:=Call("db_putHex", nil)
 	if err!=nil {
 		return nil, err
 	}
@@ -44,10 +46,10 @@ func DB() (interface{}, error) {
 	return resp.Result, nil
 }
 
-db_getHex
+
 //TODO: finish
-func DB() (interface{}, error) {
-	resp, err:=Call("XXXXXXXXXXX", nil)
+func DBGetHex() (interface{}, error) {
+	resp, err:=Call("db_getHex", nil)
 	if err!=nil {
 		return nil, err
 	}

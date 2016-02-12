@@ -1,14 +1,80 @@
 package EthereumAPI
 
-import ()
+import (
+	"fmt"
+)
 
 //https://github.com/ethereum/wiki/wiki/JSON-RPC
 
 /*
-shh_post
+
 //TODO: finish
-func SSH() (interface{}, error) {
-	resp, err:=Call("XXXXXXXXXXX", nil)
+func SSHPost() (interface{}, error) {
+	resp, err:=Call("shh_post", nil)
+	if err!=nil {
+		return nil, err
+	}
+	if resp.Error!=nil {
+		return nil, fmt.Errorf(resp.Error.Message)
+	}
+	return resp.Result, nil
+}
+*/
+
+//TODO: finish
+func SSHVersion() (string, error) {
+	resp, err := Call("shh_version", nil)
+	if err != nil {
+		return "", err
+	}
+	if resp.Error != nil {
+		return "", fmt.Errorf(resp.Error.Message)
+	}
+	return resp.Result.(string), nil
+}
+
+//TODO: finish
+func SSHNewIdentity() (interface{}, error) {
+	resp, err := Call("shh_newIdentity", nil)
+	if err != nil {
+		return nil, err
+	}
+	if resp.Error != nil {
+		return nil, fmt.Errorf(resp.Error.Message)
+	}
+	return resp.Result, nil
+}
+
+/*
+//TODO: finish
+func SSHHasIdentity() (interface{}, error) {
+	resp, err:=Call("shh_hasIdentity", nil)
+	if err!=nil {
+		return nil, err
+	}
+	if resp.Error!=nil {
+		return nil, fmt.Errorf(resp.Error.Message)
+	}
+	return resp.Result, nil
+}
+*/
+
+//TODO: finish
+func SSHNewGroup() (interface{}, error) {
+	resp, err := Call("shh_newGroup", nil)
+	if err != nil {
+		return nil, err
+	}
+	if resp.Error != nil {
+		return nil, fmt.Errorf(resp.Error.Message)
+	}
+	return resp.Result, nil
+}
+
+/*
+//TODO: finish
+func SSHAddToGroup() (interface{}, error) {
+	resp, err:=Call("shh_addToGroup", nil)
 	if err!=nil {
 		return nil, err
 	}
@@ -18,10 +84,10 @@ func SSH() (interface{}, error) {
 	return resp.Result, nil
 }
 
-shh_version
+
 //TODO: finish
-func SSH() (interface{}, error) {
-	resp, err:=Call("XXXXXXXXXXX", nil)
+func SSHNewFilter() (interface{}, error) {
+	resp, err:=Call("shh_newFilter", nil)
 	if err!=nil {
 		return nil, err
 	}
@@ -31,10 +97,10 @@ func SSH() (interface{}, error) {
 	return resp.Result, nil
 }
 
-shh_newIdentity
+
 //TODO: finish
-func SSH() (interface{}, error) {
-	resp, err:=Call("XXXXXXXXXXX", nil)
+func SSHUninstallFilter() (interface{}, error) {
+	resp, err:=Call("shh_uninstallFilter", nil)
 	if err!=nil {
 		return nil, err
 	}
@@ -44,10 +110,10 @@ func SSH() (interface{}, error) {
 	return resp.Result, nil
 }
 
-shh_hasIdentity
+
 //TODO: finish
-func SSH() (interface{}, error) {
-	resp, err:=Call("XXXXXXXXXXX", nil)
+func SSHGetFilterChanges() (interface{}, error) {
+	resp, err:=Call("shh_getFilterChanges", nil)
 	if err!=nil {
 		return nil, err
 	}
@@ -57,75 +123,10 @@ func SSH() (interface{}, error) {
 	return resp.Result, nil
 }
 
-shh_newGroup
-//TODO: finish
-func SSH() (interface{}, error) {
-	resp, err:=Call("XXXXXXXXXXX", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
 
-shh_addToGroup
 //TODO: finish
-func SSH() (interface{}, error) {
-	resp, err:=Call("XXXXXXXXXXX", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-shh_newFilter
-//TODO: finish
-func SSH() (interface{}, error) {
-	resp, err:=Call("XXXXXXXXXXX", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-shh_uninstallFilter
-//TODO: finish
-func SSH() (interface{}, error) {
-	resp, err:=Call("XXXXXXXXXXX", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-shh_getFilterChanges
-//TODO: finish
-func SSH() (interface{}, error) {
-	resp, err:=Call("XXXXXXXXXXX", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-shh_getMessages
-//TODO: finish
-func SSH() (interface{}, error) {
-	resp, err:=Call("XXXXXXXXXXX", nil)
+func SSHGetMessages() (interface{}, error) {
+	resp, err:=Call("shh_getMessages", nil)
 	if err!=nil {
 		return nil, err
 	}

@@ -1,6 +1,8 @@
 package EthereumAPI
 
-import ()
+import (
+	"fmt"
+)
 
 //https://github.com/ethereum/wiki/wiki/JSON-RPC
 
@@ -15,17 +17,13 @@ func Web3ClientVersion() (string, error) {
 	return resp.Result.(string), nil
 }
 
-/*
-//TODO: finish
-func Web3Sha3() (interface{}, error) {
-	resp, err:=Call("web3_sha3", nil)
-	if err!=nil {
+func Web3Sha3(data []byte) ([]byte, error) {
+	resp, err := Call("web3_sha3", []string{HexToData(data)})
+	if err != nil {
 		return nil, err
 	}
-	if resp.Error!=nil {
+	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return DataToHex(resp.Result.(string))
 }
-
-*/

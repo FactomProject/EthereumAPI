@@ -1,10 +1,11 @@
 package EthereumAPI
 
-import ()
+import (
+	"fmt"
+)
 
 //https://github.com/ethereum/wiki/wiki/JSON-RPC
 
-//TODO: finish
 func NetVersion() (string, error) {
 	resp, err := Call("net_version", nil)
 	if err != nil {
@@ -27,14 +28,13 @@ func NetListening() (bool, error) {
 	return resp.Result.(bool), nil
 }
 
-//TODO: finish
-func NetPeerCount() (interface{}, error) {
+func NetPeerCount() (int64, error) {
 	resp, err := Call("net_peerCount", nil)
 	if err != nil {
-		return nil, err
+		return 0, err
 	}
 	if resp.Error != nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+		return 0, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return QuantityToInt(resp.Result.(string))
 }
