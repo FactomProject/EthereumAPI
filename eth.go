@@ -299,79 +299,107 @@ func EthGetBlockByNumber(blockNumberOrTag string, fullTransaction bool) (*BlockO
 	return answer, nil
 }
 
-/*
-//TODO: finish
-func EthGetTransactionByHash(txHash string) (interface{}, error) {
-	resp, err := Call("eth_getTransactionByHash", nil)
+//TODO: test
+func EthGetTransactionByHash(txHash string) (*TransactionObject, error) {
+	resp, err := Call("eth_getTransactionByHash", []interface{}{txHash})
 	if err != nil {
 		return nil, err
 	}
 	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	answer := new(TransactionObject)
+	err = MapToObject(resp.Result, answer)
+	if err != nil {
+		return nil, err
+	}
+	return answer, nil
 }
 
-//TODO: finish
-func EthGetTransactionByBlockHashAndIndex() (interface{}, error) {
-	resp, err := Call("eth_getTransactionByBlockHashAndIndex", nil)
+//TODO: test
+func EthGetTransactionByBlockHashAndIndex(blockHash, txIndex string) (*TransactionObject, error) {
+	resp, err := Call("eth_getTransactionByBlockHashAndIndex", []interface{}{blockHash, txIndex})
 	if err != nil {
 		return nil, err
 	}
 	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	answer := new(TransactionObject)
+	err = MapToObject(resp.Result, answer)
+	if err != nil {
+		return nil, err
+	}
+	return answer, nil
 }
 
-//TODO: finish
-func EthGetTransactionByBlockNumberAndIndex() (interface{}, error) {
-	resp, err := Call("eth_getTransactionByBlockNumberAndIndex", nil)
+//TODO: test
+func EthGetTransactionByBlockNumberAndIndex(blockNumberOrTag string, txIndex string) (*TransactionObject, error) {
+	resp, err := Call("eth_getTransactionByBlockNumberAndIndex", []interface{}{blockNumberOrTag, txIndex})
 	if err != nil {
 		return nil, err
 	}
 	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	answer := new(TransactionObject)
+	err = MapToObject(resp.Result, answer)
+	if err != nil {
+		return nil, err
+	}
+	return answer, nil
 }
 
-//TODO: finish
-func EthGetTransactionReceipt() (interface{}, error) {
-	resp, err := Call("eth_getTransactionReceipt", nil)
+//TODO: test
+func EthGetTransactionReceipt(txHash string) (*TransactionReceipt, error) {
+	resp, err := Call("eth_getTransactionReceipt", []interface{}{txHash})
 	if err != nil {
 		return nil, err
 	}
 	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	answer := new(TransactionReceipt)
+	err = MapToObject(resp.Result, answer)
+	if err != nil {
+		return nil, err
+	}
+	return answer, nil
 }
 
-//TODO: finish
-func EthGetUncleByBlockHashAndIndex() (interface{}, error) {
-	resp, err := Call("eth_getUncleByBlockHashAndIndex", nil)
+//TODO: test
+func EthGetUncleByBlockHashAndIndex(blockHash, uncleIndex string) (*BlockObject, error) {
+	resp, err := Call("eth_getUncleByBlockHashAndIndex", []interface{}{blockHash, uncleIndex})
 	if err != nil {
 		return nil, err
 	}
 	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	answer := new(BlockObject)
+	err = MapToObject(resp.Result, answer)
+	if err != nil {
+		return nil, err
+	}
+	return answer, nil
 }
 
-//TODO: finish
-func EthGetUncleByBlockNumberAndIndex() (interface{}, error) {
-	resp, err := Call("eth_getUncleByBlockNumberAndIndex", nil)
+//TODO: test
+func EthGetUncleByBlockNumberAndIndex(blockNumberOrTag string, uncleIndex string) (*BlockObject, error) {
+	resp, err := Call("eth_getUncleByBlockNumberAndIndex", []interface{}{blockNumberOrTag, uncleIndex})
 	if err != nil {
 		return nil, err
 	}
 	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	answer := new(BlockObject)
+	err = MapToObject(resp.Result, answer)
+	if err != nil {
+		return nil, err
+	}
+	return answer, nil
 }
-*/
 
 func EthGetCompilers() ([]string, error) {
 	resp, err := Call("eth_getCompilers", nil)
@@ -384,84 +412,76 @@ func EthGetCompilers() ([]string, error) {
 	return resp.Result.([]string), nil
 }
 
-/*
-//TODO: finish
-func EthCompileLLL() (interface{}, error) {
-	resp, err:=Call("eth_compileLLL", nil)
-	if err!=nil {
-		return nil, err
+//TODO: test
+func EthCompileLLL(sourceCode string) (string, error) {
+	resp, err := Call("eth_compileLLL", []interface{}{sourceCode})
+	if err != nil {
+		return "", err
 	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+	if resp.Error != nil {
+		return "", fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return resp.Result.(string), nil
 }
 
-
-
-//TODO: finish
-func EthCompileSolidity() (interface{}, error) {
-	resp, err:=Call("eth_compileSolidity", nil)
-	if err!=nil {
-		return nil, err
+//TODO: test
+func EthCompileSolidity(sourceCode string) (string, error) {
+	resp, err := Call("eth_compileSolidity", []interface{}{sourceCode})
+	if err != nil {
+		return "", err
 	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+	if resp.Error != nil {
+		return "", fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return resp.Result.(string), nil
 }
 
-
-
-//TODO: finish
-func EthCompileSerpent() (interface{}, error) {
-	resp, err:=Call("eth_compileSerpent", nil)
-	if err!=nil {
-		return nil, err
+//TODO: test
+func EthCompileSerpent(sourceCode string) (string, error) {
+	resp, err := Call("eth_compileSerpent", []interface{}{sourceCode})
+	if err != nil {
+		return "", err
 	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+	if resp.Error != nil {
+		return "", fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return resp.Result.(string), nil
 }
 
-
-
-//TODO: finish
-func EthNewFilter() (interface{}, error) {
-	resp, err:=Call("eth_newFilter", nil)
-	if err!=nil {
-		return nil, err
+//TODO: test
+func EthNewFilter(filterOptions *FilterOptions) (int64, error) {
+	resp, err := Call("eth_newFilter", []interface{}{filterOptions})
+	if err != nil {
+		return 0, err
 	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+	if resp.Error != nil {
+		return 0, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return ParseQuantity(resp.Result.(string))
 }
-*/
 
-//TODO: finish
-func EthNewBlockFilter() (interface{}, error) {
+//TODO: test
+func EthNewBlockFilter() (int64, error) {
 	resp, err := Call("eth_newBlockFilter", nil)
 	if err != nil {
-		return nil, err
+		return 0, err
 	}
 	if resp.Error != nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+		return 0, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return ParseQuantity(resp.Result.(string))
 }
 
-//TODO: finish
-func EthNewPendingTransactionFilter() (interface{}, error) {
+//TODO: test
+func EthNewPendingTransactionFilter() (int64, error) {
 	resp, err := Call("eth_newPendingTransactionFilter", nil)
 	if err != nil {
-		return nil, err
+		return 0, err
 	}
 	if resp.Error != nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+		return 0, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return ParseQuantity(resp.Result.(string))
 }
 
 /*

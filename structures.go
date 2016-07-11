@@ -1,12 +1,26 @@
 package EthereumAPI
 
+type EthSyncingResponse struct {
+	Syncing       bool   `json:"syncing,omitempty"`
+	StartingBlock string `json:"startingBlock,omitempty"`
+	CurrentBlock  string `json:"currentBlock,omitempty"`
+	HighestBlock  string `json:"highestBlock,omitempty"`
+}
+
 type TransactionObject struct {
+	Hash             string `json:"hash,omitempty"`
+	Nonce            string `json:"nonce,omitempty"`
+	BlockHash        string `json:"blockHash,omitempty"`
+	BlockNumber      string `json:"blockNumber,omitempty"`
+	TransactionIndex string `json:"transactionIndex,omitempty"`
+
 	From     string `json:"from"`
 	To       string `json:"to"`
 	Gas      string `json:"gas"`
 	GasPrice string `json:"gasPrice"`
 	Value    string `json:"value"`
-	Data     string `json:"data"`
+	Data     string `json:"data,omitempty"`
+	Input    string `json:"input,omitempty"`
 }
 
 type BlockObject struct {
@@ -31,9 +45,20 @@ type BlockObject struct {
 	Uncles       []string      `json:"uncles"`
 }
 
-type EthSyncingResponse struct {
-	Syncing       bool   `json:"syncing,omitempty"`
-	StartingBlock string `json:"startingBlock,omitempty"`
-	CurrentBlock  string `json:"currentBlock,omitempty"`
-	HighestBlock  string `json:"highestBlock,omitempty"`
+type TransactionReceipt struct {
+	TransactionHash   string        `json:"transactionHash"`
+	TransactionIndex  string        `json:"transactionIndex"`
+	BlockHash         string        `json:"blockHash"`
+	BlockNumber       string        `json:"blockNumber"`
+	CumulativeGasUsed string        `json:"cumulativeGasUsed"`
+	GasUsed           string        `json:"gasUsed"`
+	ContractAddress   string        `json:"contractAddress"`
+	Logs              []interface{} `json:"logs"`
+}
+
+type FilterOptions struct {
+	FromBlock string `json:"fromBlock,omitempty"`
+	ToBlock   string `json:"toBlock,omitempty"`
+	Address   string `json:"address,omitempty"`
+	Topics    string `json:"topics,omitempty"`
 }
