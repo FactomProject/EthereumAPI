@@ -17,8 +17,7 @@ func EthProtocolVersion() (string, error) {
 	return resp.Result.(string), nil
 }
 
-//TODO: finish
-func EthSyncing() (interface{}, error) {
+func EthSyncing() (*EthSyncingResponse, error) {
 	resp, err := Call("eth_syncing", nil)
 	if err != nil {
 		return nil, err
@@ -26,19 +25,28 @@ func EthSyncing() (interface{}, error) {
 	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
-}
-
-//TODO: finish
-func EthCoinbase() (interface{}, error) {
-	resp, err := Call("eth_coinbase", nil)
+	answer := new(EthSyncingResponse)
+	syncing, ok := resp.Result.(bool)
+	if ok == true {
+		answer.Syncing = syncing
+		return answer, nil
+	}
+	err = MapToObject(resp.Result, answer)
 	if err != nil {
 		return nil, err
 	}
-	if resp.Error != nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+	return answer, nil
+}
+
+func EthCoinbase() (string, error) {
+	resp, err := Call("eth_coinbase", nil)
+	if err != nil {
+		return "", err
 	}
-	return resp.Result, nil
+	if resp.Error != nil {
+		return "", fmt.Errorf(resp.Error.Message)
+	}
+	return resp.Result.(string), nil
 }
 
 func EthMining() (bool, error) {
@@ -52,32 +60,29 @@ func EthMining() (bool, error) {
 	return resp.Result.(bool), nil
 }
 
-//TODO: finish
-func EthHashrate() (interface{}, error) {
+func EthHashrate() (int64, error) {
 	resp, err := Call("eth_hashrate", nil)
 	if err != nil {
-		return nil, err
+		return 0, err
 	}
 	if resp.Error != nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+		return 0, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return ParseQuantity(resp.Result.(string))
 }
 
-//TODO: finish
-func EthGasPrice() (interface{}, error) {
+func EthGasPrice() (int64, error) {
 	resp, err := Call("eth_gasPrice", nil)
 	if err != nil {
-		return nil, err
+		return 0, err
 	}
 	if resp.Error != nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+		return 0, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return ParseQuantity(resp.Result.(string))
 }
 
-//TODO: finish
-func EthAccounts() (interface{}, error) {
+func EthAccounts() ([]string, error) {
 	resp, err := Call("eth_accounts", nil)
 	if err != nil {
 		return nil, err
@@ -85,12 +90,219 @@ func EthAccounts() (interface{}, error) {
 	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	answer := []string{}
+	err = MapToObject(resp.Result, &answer)
+	if err != nil {
+		return nil, err
+	}
+	return answer, nil
 }
 
-//TODO: finish
-func EthBlockNumber() (interface{}, error) {
+func EthBlockNumber() (int64, error) {
 	resp, err := Call("eth_blockNumber", nil)
+	if err != nil {
+		return 0, err
+	}
+	if resp.Error != nil {
+		return 0, fmt.Errorf(resp.Error.Message)
+	}
+	return ParseQuantity(resp.Result.(string))
+}
+
+//TODO: test
+func EthGetBalance(address string, blockNumberOrTag string) (int64, error) {
+	resp, err := Call("eth_getBalance", []string{address, blockNumberOrTag})
+	if err != nil {
+		return 0, err
+	}
+	if resp.Error != nil {
+		return 0, fmt.Errorf(resp.Error.Message)
+	}
+	return ParseQuantity(resp.Result.(string))
+}
+
+//TODO: test
+func EthGetStorageAt(address, positionInTheStorage, blockNumberOrTag string) (string, error) {
+	resp, err := Call("eth_getStorageAt", []string{address, positionInTheStorage, blockNumberOrTag})
+	if err != nil {
+		return "", err
+	}
+	if resp.Error != nil {
+		return "", fmt.Errorf(resp.Error.Message)
+	}
+	return resp.Result.(string), nil
+}
+
+//TODO: test
+func EthGetTransactionCount(address, blockNumberOrTag string) (int64, error) {
+	resp, err := Call("eth_getTransactionCount", []string{address, blockNumberOrTag})
+	if err != nil {
+		return 0, err
+	}
+	if resp.Error != nil {
+		return 0, fmt.Errorf(resp.Error.Message)
+	}
+	return ParseQuantity(resp.Result.(string))
+}
+
+//TODO: test
+func EthGetBlockTransactionCountByHash(blockHash string) (int64, error) {
+	resp, err := Call("eth_getBlockTransactionCountByHash", []string{blockHash})
+	if err != nil {
+		return 0, err
+	}
+	if resp.Error != nil {
+		return 0, fmt.Errorf(resp.Error.Message)
+	}
+	return ParseQuantity(resp.Result.(string))
+}
+
+//TODO: test
+func EthGetBlockTransactionCountByNumber(blockNumberOrTag string) (int64, error) {
+	resp, err := Call("eth_getBlockTransactionCountByNumber", []string{blockNumberOrTag})
+	if err != nil {
+		return 0, err
+	}
+	if resp.Error != nil {
+		return 0, fmt.Errorf(resp.Error.Message)
+	}
+	return ParseQuantity(resp.Result.(string))
+}
+
+//TODO: test
+func EthGetUncleCountByBlockHash(blockHash string) (int64, error) {
+	resp, err := Call("eth_getUncleCountByBlockHash", []string{blockHash})
+	if err != nil {
+		return 0, err
+	}
+	if resp.Error != nil {
+		return 0, fmt.Errorf(resp.Error.Message)
+	}
+	return ParseQuantity(resp.Result.(string))
+}
+
+//TODO: test
+func EthGetUncleCountByBlockNumber(blockNumberOrTag string) (interface{}, error) {
+	resp, err := Call("eth_getUncleCountByBlockNumber", []string{blockNumberOrTag})
+	if err != nil {
+		return 0, err
+	}
+	if resp.Error != nil {
+		return 0, fmt.Errorf(resp.Error.Message)
+	}
+	return ParseQuantity(resp.Result.(string))
+}
+
+//TODO: test
+func EthGetCode(address, blockNumberOrTag string) (string, error) {
+	resp, err := Call("eth_getCode", []string{address, blockNumberOrTag})
+	if err != nil {
+		return "", err
+	}
+	if resp.Error != nil {
+		return "", fmt.Errorf(resp.Error.Message)
+	}
+	return resp.Result.(string), nil
+}
+
+//TODO: test
+func EthSign(address, hashOfDataToSign string) (string, error) {
+	resp, err := Call("eth_sign", []string{address, hashOfDataToSign})
+	if err != nil {
+		return "", err
+	}
+	if resp.Error != nil {
+		return "", fmt.Errorf(resp.Error.Message)
+	}
+	return resp.Result.(string), nil
+}
+
+//TODO: test
+func EthSendTransaction(tx *TransactionObject) (string, error) {
+	resp, err := Call("eth_sendTransaction", []interface{}{tx})
+	if err != nil {
+		return "", err
+	}
+	if resp.Error != nil {
+		return "", fmt.Errorf(resp.Error.Message)
+	}
+	return resp.Result.(string), nil
+}
+
+//TODO: test
+func EthSendRawTransaction(txData string) (interface{}, error) {
+	resp, err := Call("eth_sendRawTransaction", []string{txData})
+	if err != nil {
+		return "", err
+	}
+	if resp.Error != nil {
+		return "", fmt.Errorf(resp.Error.Message)
+	}
+	return resp.Result.(string), nil
+}
+
+//TODO: test
+func EthCall(tx *TransactionObject, blockNumberOrTag string) (interface{}, error) {
+	resp, err := Call("eth_call", []interface{}{tx, blockNumberOrTag})
+	if err != nil {
+		return "", err
+	}
+	if resp.Error != nil {
+		return "", fmt.Errorf(resp.Error.Message)
+	}
+	return resp.Result.(string), nil
+}
+
+//TODO: test
+func EthEstimateGas(tx *TransactionObject, blockNumberOrTag string) (int64, error) {
+	resp, err := Call("eth_estimateGas", []interface{}{tx, blockNumberOrTag})
+	if err != nil {
+		return 0, err
+	}
+	if resp.Error != nil {
+		return 0, fmt.Errorf(resp.Error.Message)
+	}
+	return ParseQuantity(resp.Result.(string))
+}
+
+//TODO: test
+func EthGetBlockByHash(blockHash string, fullTransaction bool) (*BlockObject, error) {
+	resp, err := Call("eth_getBlockByHash", []interface{}{blockHash, fullTransaction})
+	if err != nil {
+		return nil, err
+	}
+	if resp.Error != nil {
+		return nil, fmt.Errorf(resp.Error.Message)
+	}
+	answer := new(BlockObject)
+	err = MapToObject(resp.Result, answer)
+	if err != nil {
+		return nil, err
+	}
+	return answer, nil
+}
+
+//TODO: test
+func EthGetBlockByNumber(blockNumberOrTag string, fullTransaction bool) (*BlockObject, error) {
+	resp, err := Call("eth_getBlockByNumber", []interface{}{blockNumberOrTag, fullTransaction})
+	if err != nil {
+		return nil, err
+	}
+	if resp.Error != nil {
+		return nil, fmt.Errorf(resp.Error.Message)
+	}
+	answer := new(BlockObject)
+	err = MapToObject(resp.Result, answer)
+	if err != nil {
+		return nil, err
+	}
+	return answer, nil
+}
+
+/*
+//TODO: finish
+func EthGetTransactionByHash(txHash string) (interface{}, error) {
+	resp, err := Call("eth_getTransactionByHash", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -100,284 +312,61 @@ func EthBlockNumber() (interface{}, error) {
 	return resp.Result, nil
 }
 
-/*
-//TODO: finish
-func EthGetBalance() (interface{}, error) {
-	resp, err:=Call("eth_getBalance", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-//TODO: finish
-func EthGetStorageAt() (interface{}, error) {
-	resp, err:=Call("eth_getStorageAt", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-//TODO: finish
-func EthGetTransactionCount() (interface{}, error) {
-	resp, err:=Call("eth_getTransactionCount", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-//TODO: finish
-func EthGetBlockTransactionCountByHash() (interface{}, error) {
-	resp, err:=Call("eth_getBlockTransactionCountByHash", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-//TODO: finish
-func EthGetBlockTransactionCountByNumber() (interface{}, error) {
-	resp, err:=Call("eth_getBlockTransactionCountByNumber", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-//TODO: finish
-func EthGetUncleCountByBlockHash() (interface{}, error) {
-	resp, err:=Call("eth_getUncleCountByBlockHash", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-
-
-//TODO: finish
-func EthGetUncleCountByBlockNumber() (interface{}, error) {
-	resp, err:=Call("eth_getUncleCountByBlockNumber", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-
-
-//TODO: finish
-func EthGetCode() (interface{}, error) {
-	resp, err:=Call("eth_getCode", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-
-
-//TODO: finish
-func EthSign() (interface{}, error) {
-	resp, err:=Call("eth_sign", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-
-
-//TODO: finish
-func EthSendTransaction() (interface{}, error) {
-	resp, err:=Call("eth_sendTransaction", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-
-
-//TODO: finish
-func EthSendRawTransaction() (interface{}, error) {
-	resp, err:=Call("eth_sendRawTransaction", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-
-
-//TODO: finish
-func EthCall() (interface{}, error) {
-	resp, err:=Call("eth_call", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-
-
-//TODO: finish
-func EthEstimateGas() (interface{}, error) {
-	resp, err:=Call("eth_estimateGas", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-
-
-//TODO: finish
-func EthGetBlockByHash() (interface{}, error) {
-	resp, err:=Call("eth_getBlockByHash", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-
-
-//TODO: finish
-func EthGetBlockByNumber() (interface{}, error) {
-	resp, err:=Call("eth_getBlockByNumber", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-
-
-//TODO: finish
-func EthGetTransactionByHash() (interface{}, error) {
-	resp, err:=Call("eth_getTransactionByHash", nil)
-	if err!=nil {
-		return nil, err
-	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
-}
-
-
-
 //TODO: finish
 func EthGetTransactionByBlockHashAndIndex() (interface{}, error) {
-	resp, err:=Call("eth_getTransactionByBlockHashAndIndex", nil)
-	if err!=nil {
+	resp, err := Call("eth_getTransactionByBlockHashAndIndex", nil)
+	if err != nil {
 		return nil, err
 	}
-	if resp.Error!=nil {
+	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
-
-
 
 //TODO: finish
 func EthGetTransactionByBlockNumberAndIndex() (interface{}, error) {
-	resp, err:=Call("eth_getTransactionByBlockNumberAndIndex", nil)
-	if err!=nil {
+	resp, err := Call("eth_getTransactionByBlockNumberAndIndex", nil)
+	if err != nil {
 		return nil, err
 	}
-	if resp.Error!=nil {
+	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
-
-
 
 //TODO: finish
 func EthGetTransactionReceipt() (interface{}, error) {
-	resp, err:=Call("eth_getTransactionReceipt", nil)
-	if err!=nil {
+	resp, err := Call("eth_getTransactionReceipt", nil)
+	if err != nil {
 		return nil, err
 	}
-	if resp.Error!=nil {
+	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
-
-
 
 //TODO: finish
 func EthGetUncleByBlockHashAndIndex() (interface{}, error) {
-	resp, err:=Call("eth_getUncleByBlockHashAndIndex", nil)
-	if err!=nil {
+	resp, err := Call("eth_getUncleByBlockHashAndIndex", nil)
+	if err != nil {
 		return nil, err
 	}
-	if resp.Error!=nil {
+	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
 
-
-
 //TODO: finish
 func EthGetUncleByBlockNumberAndIndex() (interface{}, error) {
-	resp, err:=Call("eth_getUncleByBlockNumberAndIndex", nil)
-	if err!=nil {
+	resp, err := Call("eth_getUncleByBlockNumberAndIndex", nil)
+	if err != nil {
 		return nil, err
 	}
-	if resp.Error!=nil {
+	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil

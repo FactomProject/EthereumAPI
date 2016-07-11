@@ -8,7 +8,20 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"strconv"
 )
+
+func MapToObject(source interface{}, dst interface{}) error {
+	b, err := json.Marshal(source)
+	if err != nil {
+		return err
+	}
+	return json.Unmarshal(b, dst)
+}
+
+func ParseQuantity(q string) (int64, error) {
+	return strconv.ParseInt(q, 0, 64)
+}
 
 func EncodeJSON(data interface{}) ([]byte, error) {
 	encoded, err := json.Marshal(data)
