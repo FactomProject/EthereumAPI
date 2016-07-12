@@ -62,3 +62,15 @@ type FilterOptions struct {
 	Address   string `json:"address,omitempty"`
 	Topics    string `json:"topics,omitempty"`
 }
+
+type LogObject struct {
+	Type             string   `json:"type"`
+	logIndex         string   `json:"logIndex"`
+	TransactionIndex string   `json:"transactionIndex"`
+	TransactionHash  string   `json:"transactionHash"`
+	BlockHash        string   `json:"blockHash"`
+	BlockNumber      string   `json:"blockNumber"`
+	Address          string   `json:"address"`
+	Data             string   `json:"data"`
+	Topics           []string `json:"topics"`
+}

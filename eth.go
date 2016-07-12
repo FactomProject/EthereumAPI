@@ -484,64 +484,71 @@ func EthNewPendingTransactionFilter() (int64, error) {
 	return ParseQuantity(resp.Result.(string))
 }
 
-/*
-//TODO: finish
-func EthUninstallFilter() (interface{}, error) {
-	resp, err:=Call("eth_uninstallFilter", nil)
-	if err!=nil {
-		return nil, err
+//TODO: test
+func EthUninstallFilter(filterID string) (bool, error) {
+	resp, err := Call("eth_uninstallFilter", []interface{}{filterID})
+	if err != nil {
+		return false, err
 	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+	if resp.Error != nil {
+		return false, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return resp.Result.(bool), nil
 }
 
-
-
-//TODO: finish
-func EthGetFilterChanges() (interface{}, error) {
-	resp, err:=Call("eth_getFilterChanges", nil)
-	if err!=nil {
+//TODO: test
+func EthGetFilterChanges(filterID string) (*LogObject, error) {
+	resp, err := Call("eth_getFilterChanges", []interface{}{filterID})
+	if err != nil {
 		return nil, err
 	}
-	if resp.Error!=nil {
+	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
-}
-
-
-
-//TODO: finish
-func EthGetFilterLogs() (interface{}, error) {
-	resp, err:=Call("eth_getFilterLogs", nil)
-	if err!=nil {
+	answer := new(LogObject)
+	err = MapToObject(resp.Result, answer)
+	if err != nil {
 		return nil, err
 	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
+	return answer, nil
 }
 
-
-
-//TODO: finish
-func EthGetLogs() (interface{}, error) {
-	resp, err:=Call("eth_getLogs", nil)
-	if err!=nil {
+//TODO: test
+func EthGetFilterLogs(filterID string) (*LogObject, error) {
+	resp, err := Call("eth_getFilterLogs", nil)
+	if err != nil {
 		return nil, err
 	}
-	if resp.Error!=nil {
+	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	answer := new(LogObject)
+	err = MapToObject(resp.Result, answer)
+	if err != nil {
+		return nil, err
+	}
+	return answer, nil
 }
-*/
 
-//TODO: finish
-func EthGetWork() (interface{}, error) {
+//TODO: test
+func EthGetLogs(filter []*FilterOptions) (interface{}, error) {
+	resp, err := Call("eth_getLogs", filter)
+	if err != nil {
+		return nil, err
+	}
+	if resp.Error != nil {
+		return nil, fmt.Errorf(resp.Error.Message)
+	}
+	answer := new(LogObject)
+	err = MapToObject(resp.Result, answer)
+	if err != nil {
+		return nil, err
+	}
+	return answer, nil
+}
+
+//TODO: test
+func EthGetWork() ([]string, error) {
 	resp, err := Call("eth_getWork", nil)
 	if err != nil {
 		return nil, err
@@ -549,34 +556,34 @@ func EthGetWork() (interface{}, error) {
 	if resp.Error != nil {
 		return nil, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
-}
-
-/*
-//TODO: finish
-func EthSubmitWork() (interface{}, error) {
-	resp, err:=Call("eth_submitWork", nil)
-	if err!=nil {
+	answer := []string{}
+	err = MapToObject(resp.Result, &answer)
+	if err != nil {
 		return nil, err
 	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
-	}
-	return resp.Result, nil
+	return answer, nil
 }
 
-
-
-//TODO: finish
-func EthSubmitHashrate() (interface{}, error) {
-	resp, err:=Call("eth_submitHashrate", nil)
-	if err!=nil {
-		return nil, err
+//TODO: test
+func EthSubmitWork(work []string) (bool, error) {
+	resp, err := Call("eth_submitWork", work)
+	if err != nil {
+		return false, err
 	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+	if resp.Error != nil {
+		return false, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return resp.Result.(bool), nil
 }
 
-*/
+//TODO: test
+func EthSubmitHashrate(hashrate []string) (bool, error) {
+	resp, err := Call("eth_submitHashrate", hashrate)
+	if err != nil {
+		return false, err
+	}
+	if resp.Error != nil {
+		return false, fmt.Errorf(resp.Error.Message)
+	}
+	return resp.Result.(bool), nil
+}
