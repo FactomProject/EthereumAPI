@@ -182,7 +182,7 @@ func EthGetUncleCountByBlockHash(blockHash string) (int64, error) {
 }
 
 //TODO: test
-func EthGetUncleCountByBlockNumber(blockNumberOrTag string) (interface{}, error) {
+func EthGetUncleCountByBlockNumber(blockNumberOrTag string) (int64, error) {
 	resp, err := Call("eth_getUncleCountByBlockNumber", []string{blockNumberOrTag})
 	if err != nil {
 		return 0, err
@@ -230,7 +230,7 @@ func EthSendTransaction(tx *TransactionObject) (string, error) {
 }
 
 //TODO: test
-func EthSendRawTransaction(txData string) (interface{}, error) {
+func EthSendRawTransaction(txData string) (string, error) {
 	resp, err := Call("eth_sendRawTransaction", []string{txData})
 	if err != nil {
 		return "", err
@@ -242,7 +242,7 @@ func EthSendRawTransaction(txData string) (interface{}, error) {
 }
 
 //TODO: test
-func EthCall(tx *TransactionObject, blockNumberOrTag string) (interface{}, error) {
+func EthCall(tx *TransactionObject, blockNumberOrTag string) (string, error) {
 	resp, err := Call("eth_call", []interface{}{tx, blockNumberOrTag})
 	if err != nil {
 		return "", err
@@ -531,7 +531,7 @@ func EthGetFilterLogs(filterID string) (*LogObject, error) {
 }
 
 //TODO: test
-func EthGetLogs(filter []*FilterOptions) (interface{}, error) {
+func EthGetLogs(filter []*FilterOptions) (*LogObject, error) {
 	resp, err := Call("eth_getLogs", filter)
 	if err != nil {
 		return nil, err

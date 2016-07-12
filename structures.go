@@ -1,5 +1,10 @@
 package EthereumAPI
 
+import (
+	"bytes"
+	"encoding"
+)
+
 type EthSyncingResponse struct {
 	Syncing       bool   `json:"syncing,omitempty"`
 	StartingBlock string `json:"startingBlock,omitempty"`
@@ -94,4 +99,53 @@ type Message struct {
 	Topics     []string `json:"topics"`
 	Payload    string   `json:"payload"`
 	WorkProved string   `json:"workProved"`
+}
+
+type Quantity int64
+
+var _ encoding.TextMarshaler = (*Quantity)(nil)
+var _ encoding.TextUnmarshaler = (*Quantity)(nil)
+
+func (q *Quantity) MarshalText() (text []byte, err error) {
+	return ([]byte)(IntToQuantity(int64(*q))), nil
+}
+
+func (q *Quantity) UnmarshalText(text []byte) error {
+	i, err := QuantityToInt(string(text))
+	if err != nil {
+		return err
+	}
+	*q = Quantity(i)
+	return nil
+}
+
+func (e *Quantity) JSONByte() ([]byte, error) {
+	return EncodeJSON(e)
+}
+
+func (e *Quantity) JSONString() (string, error) {
+	return EncodeJSONString(e)
+}
+
+func (e *Quantity) JSONBuffer(b *bytes.Buffer) error {
+	return EncodeJSONToBuffer(e, b)
+}
+
+func (e *Quantity) String() string {
+	return IntToQuantity(e.Int64())
+}
+
+func (q *Quantity) Int64() int64 {
+	return int64(*q)
+}
+
+func NewQuantityFromInt(i int64) *Quantity {
+	q := new(Quantity)
+	*q = Quantity(i)
+	return q
+}
+
+func NewQuantityFromString(s string) *Quantity {
+	i, _ := QuantityToInt(s)
+	return NewQuantityFromInt(i)
 }

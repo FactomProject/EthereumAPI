@@ -28,13 +28,18 @@ func NetListening() (bool, error) {
 	return resp.Result.(bool), nil
 }
 
-func NetPeerCount() (int64, error) {
+func NetPeerCount() (*Quantity, error) {
 	resp, err := Call("net_peerCount", nil)
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return 0, fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
-	return QuantityToInt(resp.Result.(string))
+	answer := new(Quantity)
+	err = MapToObject(resp.Result, answer)
+	if err != nil {
+		return nil, err
+	}
+	return answer, nil
 }
