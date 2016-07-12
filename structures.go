@@ -57,10 +57,10 @@ type TransactionReceipt struct {
 }
 
 type FilterOptions struct {
-	FromBlock string `json:"fromBlock,omitempty"`
-	ToBlock   string `json:"toBlock,omitempty"`
-	Address   string `json:"address,omitempty"`
-	Topics    string `json:"topics,omitempty"`
+	FromBlock string   `json:"fromBlock,omitempty"`
+	ToBlock   string   `json:"toBlock,omitempty"`
+	Address   string   `json:"address,omitempty"`
+	Topics    []string `json:"topics,omitempty"`
 }
 
 type LogObject struct {
@@ -73,4 +73,25 @@ type LogObject struct {
 	Address          string   `json:"address"`
 	Data             string   `json:"data"`
 	Topics           []string `json:"topics"`
+}
+
+type WhisperMessage struct {
+	From     string `json:"from,omitempty"`
+	To       string `json:"to,omitempty"`
+	Topics   string `json:"topics"`
+	Payload  string `json:"payload"`
+	Priority string `json:"priority"`
+	TTL      string `json:"ttl"`
+}
+
+type Message struct {
+	Hash       string   `json:"hash"`
+	From       string   `json:"from"`
+	To         string   `json:"to"`
+	Expiry     string   `json:"expiry"`
+	TTL        string   `json:"ttl"`
+	Sent       string   `json:"sent"`
+	Topics     []string `json:"topics"`
+	Payload    string   `json:"payload"`
+	WorkProved string   `json:"workProved"`
 }

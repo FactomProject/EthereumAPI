@@ -17,13 +17,13 @@ func Web3ClientVersion() (string, error) {
 	return resp.Result.(string), nil
 }
 
-func Web3Sha3(data []byte) ([]byte, error) {
-	resp, err := Call("web3_sha3", []string{HexToData(data)})
+func Web3Sha3(data string) (string, error) {
+	resp, err := Call("web3_sha3", []interface{}{data})
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	if resp.Error != nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+		return "", fmt.Errorf(resp.Error.Message)
 	}
-	return DataToHex(resp.Result.(string))
+	return resp.Result.(string), nil
 }

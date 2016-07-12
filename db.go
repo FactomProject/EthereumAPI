@@ -1,62 +1,55 @@
 package EthereumAPI
 
 import (
-//"fmt"
+	"fmt"
 )
 
 //https://github.com/ethereum/wiki/wiki/JSON-RPC
 
-/*
-
 //TODO: finish
-func DBPutString() (interface{}, error) {
-	resp, err:=Call("db_putString", nil)
-	if err!=nil {
-		return nil, err
+func DBPutString(data []string) (bool, error) {
+	resp, err := Call("db_putString", data)
+	if err != nil {
+		return false, err
 	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+	if resp.Error != nil {
+		return false, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return resp.Result.(bool), nil
 }
 
-
 //TODO: finish
-func DBGetString() (interface{}, error) {
-	resp, err:=Call("db_getString", nil)
-	if err!=nil {
-		return nil, err
+func DBGetString(data []string) (string, error) {
+	resp, err := Call("db_getString", data)
+	if err != nil {
+		return "", err
 	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+	if resp.Error != nil {
+		return "", fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return resp.Result.(string), nil
 }
 
-
 //TODO: finish
-func DBPutHex() (interface{}, error) {
-	resp, err:=Call("db_putHex", nil)
-	if err!=nil {
-		return nil, err
+func DBPutHex(data []string) (bool, error) {
+	resp, err := Call("db_putHex", data)
+	if err != nil {
+		return false, err
 	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+	if resp.Error != nil {
+		return false, fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return resp.Result.(bool), nil
 }
 
-
 //TODO: finish
-func DBGetHex() (interface{}, error) {
-	resp, err:=Call("db_getHex", nil)
-	if err!=nil {
-		return nil, err
+func DBGetHex(data []string) (string, error) {
+	resp, err := Call("db_getHex", data)
+	if err != nil {
+		return "", err
 	}
-	if resp.Error!=nil {
-		return nil, fmt.Errorf(resp.Error.Message)
+	if resp.Error != nil {
+		return "", fmt.Errorf(resp.Error.Message)
 	}
-	return resp.Result, nil
+	return resp.Result.(string), nil
 }
-
-*/
