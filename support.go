@@ -7,6 +7,7 @@ package EthereumAPI
 import (
 	"encoding/hex"
 	"fmt"
+	"github.com/tonnerre/golang-go.crypto/sha3"
 	"strconv"
 )
 
@@ -58,4 +59,16 @@ func DataToHex(data string) ([]byte, error) {
 		}
 	}
 	return hex.DecodeString(data)
+}
+
+func StringToMethodID(method string) string {
+	h := sha3.NewKeccak256()
+	h.Write([]byte(method))
+	var digest [32]byte
+	h.Sum(digest[:0])
+	return fmt.Sprintf("%x", digest[:4])
+}
+
+func IntToData(i int64) string {
+	return fmt.Sprintf("%064x", i)
 }

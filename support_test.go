@@ -124,3 +124,21 @@ func TestDataToHex(t *testing.T) {
 		t.Errorf("%x != %x", i, hex)
 	}
 }
+
+func TestStringToMethodID(t *testing.T) {
+	id := StringToMethodID("baz(uint32,bool)")
+	if id != "cdcd77c0" {
+		t.Errorf("Invalid MethodID - %v", id)
+	}
+	id = StringToMethodID("bar(fixed128x128[2])")
+	if id != "ab55044d" {
+		t.Errorf("Invalid MethodID - %v", id)
+	}
+}
+
+func TestIntToData(t *testing.T) {
+	d := IntToData(69)
+	if d != "0000000000000000000000000000000000000000000000000000000000000045" {
+		t.Errorf("Invalid data - %v", d)
+	}
+}

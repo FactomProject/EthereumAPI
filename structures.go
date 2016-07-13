@@ -12,6 +12,23 @@ type EthSyncingResponse struct {
 	HighestBlock  string `json:"highestBlock,omitempty"`
 }
 
+func (e *EthSyncingResponse) JSONByte() ([]byte, error) {
+	return EncodeJSON(e)
+}
+
+func (e *EthSyncingResponse) JSONString() (string, error) {
+	return EncodeJSONString(e)
+}
+
+func (e *EthSyncingResponse) JSONBuffer(b *bytes.Buffer) error {
+	return EncodeJSONToBuffer(e, b)
+}
+
+func (e *EthSyncingResponse) String() string {
+	str, _ := e.JSONString()
+	return str
+}
+
 type TransactionObject struct {
 	Hash             string `json:"hash,omitempty"`
 	Nonce            string `json:"nonce,omitempty"`
@@ -20,12 +37,29 @@ type TransactionObject struct {
 	TransactionIndex string `json:"transactionIndex,omitempty"`
 
 	From     string `json:"from"`
-	To       string `json:"to"`
-	Gas      string `json:"gas"`
-	GasPrice string `json:"gasPrice"`
-	Value    string `json:"value"`
+	To       string `json:"to,omitempty"`
+	Gas      string `json:"gas,omitempty"`
+	GasPrice string `json:"gasPrice,omitempty"`
+	Value    string `json:"value,omitempty"`
 	Data     string `json:"data,omitempty"`
 	Input    string `json:"input,omitempty"`
+}
+
+func (e *TransactionObject) JSONByte() ([]byte, error) {
+	return EncodeJSON(e)
+}
+
+func (e *TransactionObject) JSONString() (string, error) {
+	return EncodeJSONString(e)
+}
+
+func (e *TransactionObject) JSONBuffer(b *bytes.Buffer) error {
+	return EncodeJSONToBuffer(e, b)
+}
+
+func (e *TransactionObject) String() string {
+	str, _ := e.JSONString()
+	return str
 }
 
 type BlockObject struct {
@@ -50,6 +84,23 @@ type BlockObject struct {
 	Uncles       []string      `json:"uncles"`
 }
 
+func (e *BlockObject) JSONByte() ([]byte, error) {
+	return EncodeJSON(e)
+}
+
+func (e *BlockObject) JSONString() (string, error) {
+	return EncodeJSONString(e)
+}
+
+func (e *BlockObject) JSONBuffer(b *bytes.Buffer) error {
+	return EncodeJSONToBuffer(e, b)
+}
+
+func (e *BlockObject) String() string {
+	str, _ := e.JSONString()
+	return str
+}
+
 type TransactionReceipt struct {
 	TransactionHash   string        `json:"transactionHash"`
 	TransactionIndex  string        `json:"transactionIndex"`
@@ -61,11 +112,45 @@ type TransactionReceipt struct {
 	Logs              []interface{} `json:"logs"`
 }
 
+func (e *TransactionReceipt) JSONByte() ([]byte, error) {
+	return EncodeJSON(e)
+}
+
+func (e *TransactionReceipt) JSONString() (string, error) {
+	return EncodeJSONString(e)
+}
+
+func (e *TransactionReceipt) JSONBuffer(b *bytes.Buffer) error {
+	return EncodeJSONToBuffer(e, b)
+}
+
+func (e *TransactionReceipt) String() string {
+	str, _ := e.JSONString()
+	return str
+}
+
 type FilterOptions struct {
 	FromBlock string   `json:"fromBlock,omitempty"`
 	ToBlock   string   `json:"toBlock,omitempty"`
 	Address   string   `json:"address,omitempty"`
 	Topics    []string `json:"topics,omitempty"`
+}
+
+func (e *FilterOptions) JSONByte() ([]byte, error) {
+	return EncodeJSON(e)
+}
+
+func (e *FilterOptions) JSONString() (string, error) {
+	return EncodeJSONString(e)
+}
+
+func (e *FilterOptions) JSONBuffer(b *bytes.Buffer) error {
+	return EncodeJSONToBuffer(e, b)
+}
+
+func (e *FilterOptions) String() string {
+	str, _ := e.JSONString()
+	return str
 }
 
 type LogObject struct {
@@ -80,6 +165,23 @@ type LogObject struct {
 	Topics           []string `json:"topics"`
 }
 
+func (e *LogObject) JSONByte() ([]byte, error) {
+	return EncodeJSON(e)
+}
+
+func (e *LogObject) JSONString() (string, error) {
+	return EncodeJSONString(e)
+}
+
+func (e *LogObject) JSONBuffer(b *bytes.Buffer) error {
+	return EncodeJSONToBuffer(e, b)
+}
+
+func (e *LogObject) String() string {
+	str, _ := e.JSONString()
+	return str
+}
+
 type WhisperMessage struct {
 	From     string `json:"from,omitempty"`
 	To       string `json:"to,omitempty"`
@@ -87,6 +189,23 @@ type WhisperMessage struct {
 	Payload  string `json:"payload"`
 	Priority string `json:"priority"`
 	TTL      string `json:"ttl"`
+}
+
+func (e *WhisperMessage) JSONByte() ([]byte, error) {
+	return EncodeJSON(e)
+}
+
+func (e *WhisperMessage) JSONString() (string, error) {
+	return EncodeJSONString(e)
+}
+
+func (e *WhisperMessage) JSONBuffer(b *bytes.Buffer) error {
+	return EncodeJSONToBuffer(e, b)
+}
+
+func (e *WhisperMessage) String() string {
+	str, _ := e.JSONString()
+	return str
 }
 
 type Message struct {
@@ -99,6 +218,23 @@ type Message struct {
 	Topics     []string `json:"topics"`
 	Payload    string   `json:"payload"`
 	WorkProved string   `json:"workProved"`
+}
+
+func (e *Message) JSONByte() ([]byte, error) {
+	return EncodeJSON(e)
+}
+
+func (e *Message) JSONString() (string, error) {
+	return EncodeJSONString(e)
+}
+
+func (e *Message) JSONBuffer(b *bytes.Buffer) error {
+	return EncodeJSONToBuffer(e, b)
+}
+
+func (e *Message) String() string {
+	str, _ := e.JSONString()
+	return str
 }
 
 type Quantity int64
