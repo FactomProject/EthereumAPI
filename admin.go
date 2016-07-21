@@ -10,10 +10,10 @@ import (
 func AdminAddPeer(url string) (interface{}, error) {
 	resp, err := Call("admin_addPeer", []interface{}{url})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -22,10 +22,10 @@ func AdminAddPeer(url string) (interface{}, error) {
 func AdminDatadir() (interface{}, error) {
 	resp, err := Call("admin_datadir", nil)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -34,10 +34,10 @@ func AdminDatadir() (interface{}, error) {
 func AdminNodeInfo() (interface{}, error) {
 	resp, err := Call("admin_nodeInfo", nil)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -46,10 +46,10 @@ func AdminNodeInfo() (interface{}, error) {
 func AdminPeers() (interface{}, error) {
 	resp, err := Call("admin_peers", nil)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -58,10 +58,10 @@ func AdminPeers() (interface{}, error) {
 func AdminSetSolc(path string) (interface{}, error) {
 	resp, err := Call("admin_setSolc", []interface{}{path})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -70,10 +70,10 @@ func AdminSetSolc(path string) (interface{}, error) {
 func AdminStartRPC(host string, port int64, cors string, apis string) (interface{}, error) {
 	resp, err := Call("admin_startRPC", []interface{}{host, port, cors, apis})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -82,10 +82,10 @@ func AdminStartRPC(host string, port int64, cors string, apis string) (interface
 func AdminStartWS(host string, port int64, cors string, apis string) (interface{}, error) {
 	resp, err := Call("admin_startWS", []interface{}{host, port, cors, apis})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -94,10 +94,10 @@ func AdminStartWS(host string, port int64, cors string, apis string) (interface{
 func AdminStopRPC() (interface{}, error) {
 	resp, err := Call("admin_stopRPC", nil)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -106,10 +106,10 @@ func AdminStopRPC() (interface{}, error) {
 func AdminStopWS() (interface{}, error) {
 	resp, err := Call("admin_stopWS", nil)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }

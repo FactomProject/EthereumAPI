@@ -10,10 +10,10 @@ import (
 func DebugBacktraceAt(location string) (interface{}, error) {
 	resp, err := Call("debug_backtraceAt", []interface{}{location})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -22,10 +22,10 @@ func DebugBacktraceAt(location string) (interface{}, error) {
 func DebugBlockProfile(file string, seconds int64) (interface{}, error) {
 	resp, err := Call("debug_blockProfile", []interface{}{file, seconds})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -34,10 +34,10 @@ func DebugBlockProfile(file string, seconds int64) (interface{}, error) {
 func DebugCPUProfile(file string, seconds int64) (interface{}, error) {
 	resp, err := Call("debug_cpuProfile", []interface{}{file, seconds})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -46,10 +46,10 @@ func DebugCPUProfile(file string, seconds int64) (interface{}, error) {
 func DebugDumpBlock(number uint64) (interface{}, error) {
 	resp, err := Call("debug_dumpBlock", []interface{}{number})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -58,10 +58,10 @@ func DebugDumpBlock(number uint64) (interface{}, error) {
 func DebugGCStats() (interface{}, error) {
 	resp, err := Call("debug_gcStats", nil)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -70,10 +70,10 @@ func DebugGCStats() (interface{}, error) {
 func DebugGetBlockRLP(number uint64) (interface{}, error) {
 	resp, err := Call("debug_getBlockRlp", []interface{}{number})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -82,10 +82,10 @@ func DebugGetBlockRLP(number uint64) (interface{}, error) {
 func DebugGoTrace(file string, seconds int64) (interface{}, error) {
 	resp, err := Call("debug_goTrace", []interface{}{file, seconds})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -94,10 +94,10 @@ func DebugGoTrace(file string, seconds int64) (interface{}, error) {
 func DebugMemStats() (interface{}, error) {
 	resp, err := Call("debug_memStats", nil)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -106,10 +106,10 @@ func DebugMemStats() (interface{}, error) {
 func DebugSeedHash(number uint64) (interface{}, error) {
 	resp, err := Call("debug_seedHash", []interface{}{number})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -118,10 +118,10 @@ func DebugSeedHash(number uint64) (interface{}, error) {
 func DebugSetHead(number uint64) (interface{}, error) {
 	resp, err := Call("debug_setHead", []interface{}{number})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -130,10 +130,10 @@ func DebugSetHead(number uint64) (interface{}, error) {
 func DebugSetBlockProfileRate(rate int64) (interface{}, error) {
 	resp, err := Call("debug_setBlockProfileRate", []interface{}{rate})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -142,10 +142,10 @@ func DebugSetBlockProfileRate(rate int64) (interface{}, error) {
 func DebugStacks() (interface{}, error) {
 	resp, err := Call("debug_stacks", nil)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -154,10 +154,10 @@ func DebugStacks() (interface{}, error) {
 func DebugStartCPUProfile(file string) (interface{}, error) {
 	resp, err := Call("debug_startCPUProfile", []interface{}{file})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -166,10 +166,10 @@ func DebugStartCPUProfile(file string) (interface{}, error) {
 func DebugStartGoTrace(file string) (interface{}, error) {
 	resp, err := Call("debug_startGoTrace", []interface{}{file})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -178,10 +178,10 @@ func DebugStartGoTrace(file string) (interface{}, error) {
 func DebugStopCPUProfile() (interface{}, error) {
 	resp, err := Call("debug_stopCPUProfile", nil)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -190,10 +190,10 @@ func DebugStopCPUProfile() (interface{}, error) {
 func DebugStopGoTrace() (interface{}, error) {
 	resp, err := Call("debug_stopGoTrace", nil)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -203,10 +203,10 @@ func DebugStopGoTrace() (interface{}, error) {
 func DebugTraceBlock(blockRlp string) (interface{}, error) {
 	resp, err := Call("debug_traceBlock", []interface{}{blockRlp})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -216,10 +216,10 @@ func DebugTraceBlock(blockRlp string) (interface{}, error) {
 func DebugTraceBlockByNumber(number uint64) (interface{}, error) {
 	resp, err := Call("debug_traceBlockByNumber", []interface{}{number})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -229,10 +229,10 @@ func DebugTraceBlockByNumber(number uint64) (interface{}, error) {
 func DebugTraceBlockByHash(hash string) (interface{}, error) {
 	resp, err := Call("debug_traceBlockByHash", []interface{}{hash})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -242,10 +242,10 @@ func DebugTraceBlockByHash(hash string) (interface{}, error) {
 func DebugTraceBlockFromFile(file string) (interface{}, error) {
 	resp, err := Call("debug_traceBlockFromFile", []interface{}{file})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -255,10 +255,10 @@ func DebugTraceBlockFromFile(file string) (interface{}, error) {
 func DebugTraceTransaction(txHash string) (interface{}, error) {
 	resp, err := Call("debug_traceTransaction", []interface{}{txHash})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -267,10 +267,10 @@ func DebugTraceTransaction(txHash string) (interface{}, error) {
 func DebugVerbosity(number int64) (interface{}, error) {
 	resp, err := Call("debug_verbosity", []interface{}{number})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -279,10 +279,10 @@ func DebugVerbosity(number int64) (interface{}, error) {
 func DebugVModule(pattern string) (interface{}, error) {
 	resp, err := Call("debug_vmodule", []interface{}{pattern})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -291,10 +291,10 @@ func DebugVModule(pattern string) (interface{}, error) {
 func DebugWriteBlockProfile(file string) (interface{}, error) {
 	resp, err := Call("debug_writeBlockProfile", []interface{}{file})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -303,10 +303,10 @@ func DebugWriteBlockProfile(file string) (interface{}, error) {
 func DebugWriteMemProfile(file string) (interface{}, error) {
 	resp, err := Call("debug_writeMemProfile", []interface{}{file})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }

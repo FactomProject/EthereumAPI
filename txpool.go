@@ -10,10 +10,10 @@ import (
 func TxPoolContent() (interface{}, error) {
 	resp, err := Call("txpool_content", nil)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -22,10 +22,10 @@ func TxPoolContent() (interface{}, error) {
 func TxPoolInspect() (interface{}, error) {
 	resp, err := Call("txpool_inspect", nil)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
@@ -34,10 +34,10 @@ func TxPoolInspect() (interface{}, error) {
 func TxPoolStatus() (interface{}, error) {
 	resp, err := Call("txpool_status", nil)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if resp.Error != nil {
-		return "", fmt.Errorf(resp.Error.Message)
+		return nil, fmt.Errorf(resp.Error.Message)
 	}
 	return resp.Result, nil
 }
