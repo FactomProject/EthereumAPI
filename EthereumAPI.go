@@ -20,6 +20,10 @@ var (
 
 //https://github.com/ethereum/wiki/wiki/JSON-RPC
 
+func SetServer(newServer string) {
+	server = newServer
+}
+
 func Call(method string, params interface{}) (*JSON2Response, error) {
 	j := NewJSON2RequestBlank()
 	j.Method = method
