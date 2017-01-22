@@ -11,7 +11,13 @@ import (
 	"strconv"
 )
 
+//https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI
+
 func IntToQuantity(i int64) string {
+	return "0x" + IntToQuantityWithoutPrefix(i)
+}
+
+func IntToQuantityWithoutPrefix(i int64) string {
 	hex := fmt.Sprintf("%x", i)
 	index := -1
 	for i := range hex {
@@ -27,7 +33,6 @@ func IntToQuantity(i int64) string {
 	if len(hex) == 0 {
 		hex = "0"
 	}
-	hex = "0x" + hex
 	return hex
 }
 
@@ -48,7 +53,26 @@ func QuantityToInt(q string) (int64, error) {
 }
 
 func HexToData(b []byte) string {
-	return fmt.Sprintf("0x%x", b)
+	return "0x" + HexToDataWithoutPrefix(b)
+}
+
+func HexToDataWithoutPrefix(b []byte) string {
+	return fmt.Sprintf("%x", b)
+}
+
+func HexToPaddedData(b []byte) string {
+	return "0x" + HexToDataWithoutPrefix(b)
+}
+
+func HexToPaddedDataWithoutPrefix(b []byte) string {
+	l := len(b)
+	data := IntToData(int64(l))
+	data += fmt.Sprintf("%x", b)
+	if l%32 != 0 {
+		rest := make([]byte, 32-l%32)
+		data += fmt.Sprintf("%x", rest)
+	}
+	return data
 }
 
 func DataToHex(data string) ([]byte, error) {
@@ -71,4 +95,12 @@ func StringToMethodID(method string) string {
 
 func IntToData(i int64) string {
 	return fmt.Sprintf("%064x", i)
+}
+
+func StringToData(str string) string {
+	return HexToPaddedData([]byte(str))
+}
+
+func StringToDataWithoutPrefix(str string) string {
+	return HexToPaddedDataWithoutPrefix([]byte(str))
 }

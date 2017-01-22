@@ -142,3 +142,10 @@ func TestIntToData(t *testing.T) {
 		t.Errorf("Invalid data - %v", d)
 	}
 }
+
+func TestStringToDataWithoutPrefix(t *testing.T) {
+	str := StringToDataWithoutPrefix("Hello, world!")
+	if str != "000000000000000000000000000000000000000000000000000000000000000d48656c6c6f2c20776f726c642100000000000000000000000000000000000000" {
+		t.Errorf("Invalid data - %v", str)
+	}
+}
