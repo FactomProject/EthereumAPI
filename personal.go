@@ -67,8 +67,8 @@ func PersonalUnlockAccount(address, passphrase string, duration int64) (interfac
 }
 
 //TODO: finish
-func PersonalSignAndSendTransaction(tx *TransactionObject, passphrase string) (string, error) {
-	resp, err := Call("personal_signAndSendTransaction", []interface{}{tx, passphrase})
+func PersonalSendTransaction(tx *TransactionObject, passphrase string) (string, error) {
+	resp, err := Call("personal_sendTransaction", []interface{}{tx, passphrase})
 	if err != nil {
 		return "", err
 	}
