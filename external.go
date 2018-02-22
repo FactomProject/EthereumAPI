@@ -15,7 +15,8 @@ import (
 //https://testnet.etherscan.io/api?module=account&action=txlist&address=0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken
 
 var EtherscanTestNet bool = true
-var EtherscanAPIKeyToken string = "YourApiKeyToken"
+var EtherscanTestNetName string = "ropsten"
+var EtherscanAPIKeyToken string = "UninitializedApiKey"
 
 func CallRest(url string, dst interface{}) error {
 	postGet := "GET"
@@ -92,8 +93,9 @@ func (e *EtherscanTransaction) String() string {
 func EtherscanTxList(address string) ([]*EtherscanTransaction, error) {
 	prefix := "api"
 	if EtherscanTestNet == true {
-		prefix = "testnet"
+		prefix = EtherscanTestNetName
 	}
+
 	url := fmt.Sprintf("https://%v.etherscan.io/api?module=account&action=txlist&address=%v&startblock=0&endblock=99999999&sort=asc&apikey=%v", prefix, address, EtherscanAPIKeyToken)
 	dst := new(EtherscanResponse)
 	dst.Result = []*EtherscanTransaction{}
@@ -112,7 +114,7 @@ func EtherscanTxList(address string) ([]*EtherscanTransaction, error) {
 func EtherscanTxListWithStartBlock(address string, startBlock int64) ([]*EtherscanTransaction, error) {
 	prefix := "api"
 	if EtherscanTestNet == true {
-		prefix = "testnet"
+		prefix = EtherscanTestNetName
 	}
 	url := fmt.Sprintf("https://%v.etherscan.io/api?module=account&action=txlist&address=%v&startblock=%v&endblock=99999999&sort=asc&apikey=%v", prefix, address, startBlock, EtherscanAPIKeyToken)
 	dst := new(EtherscanResponse)

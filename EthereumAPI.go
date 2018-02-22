@@ -44,6 +44,8 @@ func Call(method string, params interface{}) (*JSON2Response, error) {
 		return nil, err
 	}
 
+	req.Header.Set("Content-Type", "application/json")
+
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
