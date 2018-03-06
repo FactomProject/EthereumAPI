@@ -43,6 +43,7 @@ func Call(method string, params interface{}) (*JSON2Response, error) {
 	if err != nil {
 		return nil, err
 	}
+	req.Header.Set("Content-Type", "application/json")
 
 	req.Header.Set("Content-Type", "application/json")
 
