@@ -36,7 +36,7 @@ type TransactionObject struct {
 	BlockNumber      string `json:"blockNumber,omitempty"`
 	TransactionIndex string `json:"transactionIndex,omitempty"`
 
-	From     string `json:"from"`
+	From     string `json:"from,omitempty"`
 	To       string `json:"to,omitempty"`
 	Gas      string `json:"gas,omitempty"`
 	GasPrice string `json:"gasPrice,omitempty"`
