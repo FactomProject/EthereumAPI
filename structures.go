@@ -106,10 +106,13 @@ type TransactionReceipt struct {
 	TransactionIndex  string        `json:"transactionIndex"`
 	BlockHash         string        `json:"blockHash"`
 	BlockNumber       string        `json:"blockNumber"`
+	From              string        `json:"from"`
+	To                string        `json:"to"`
 	CumulativeGasUsed string        `json:"cumulativeGasUsed"`
 	GasUsed           string        `json:"gasUsed"`
 	ContractAddress   string        `json:"contractAddress"`
 	Logs              []interface{} `json:"logs"`
+	Status            string        `json:"status"`
 }
 
 func (e *TransactionReceipt) JSONByte() ([]byte, error) {
