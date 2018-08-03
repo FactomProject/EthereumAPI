@@ -93,7 +93,7 @@ func (e *EtherscanTransaction) String() string {
 func EtherscanTxList(address string) ([]*EtherscanTransaction, error) {
 	prefix := "api"
 	if EtherscanTestNet == true {
-		prefix = EtherscanTestNetName
+		prefix = fmt.Sprintf("%s-%s", prefix, EtherscanTestNetName)
 	}
 
 	url := fmt.Sprintf("https://%v.etherscan.io/api?module=account&action=txlist&address=%v&startblock=0&endblock=99999999&sort=asc&apikey=%v", prefix, address, EtherscanAPIKeyToken)
@@ -114,7 +114,7 @@ func EtherscanTxList(address string) ([]*EtherscanTransaction, error) {
 func EtherscanTxListWithStartBlock(address string, startBlock int64) ([]*EtherscanTransaction, error) {
 	prefix := "api"
 	if EtherscanTestNet == true {
-		prefix = EtherscanTestNetName
+		prefix = fmt.Sprintf("%s-%s", prefix, EtherscanTestNetName)
 	}
 	url := fmt.Sprintf("https://%v.etherscan.io/api?module=account&action=txlist&address=%v&startblock=%v&endblock=99999999&sort=asc&apikey=%v", prefix, address, startBlock, EtherscanAPIKeyToken)
 	dst := new(EtherscanResponse)
