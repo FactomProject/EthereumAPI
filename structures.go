@@ -71,6 +71,7 @@ type BlockObject struct {
 	LogsBloom        string `json:"logsBloom"`
 	TransactionsRoot string `json:"transactionsRoot"`
 	StateRoot        string `json:"stateRoot"`
+	ReceiptsRoot     string `json:"receiptsRoot"`
 	Miner            string `json:"miner"`
 	Difficulty       string `json:"difficulty"`
 	TotalDifficulty  string `json:"totalDifficulty"`
